@@ -29,7 +29,7 @@ jobs:
         uses: peter-evans/repository-dispatch@v3
         with:
           token: ${{ secrets.PAT }}
-          repository: your-username/your-other-repo-name
+          repository: lennysgarage/relations-client-java
           event-type: api_update
           client-payload: '{"commit": "${{ steps.extract-sha.outputs.COMMIT_SHA }}"}'
 
