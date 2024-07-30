@@ -21,3 +21,17 @@ jobs:
         with:
           input: "api"
           buf_token: ${{ secrets.BUF_TOKEN }}
+      - name: Extract commit SHA
+        id: extract-sha
+        run: |
+          echo "COMMIT_SHA=$(echo '${{ steps.buf-push.outputs.buf_push_output }}' | grep -o 'relations-api[^"]*' >> $GITHUB_OUTPUT
+      - name: Repository Dispatch
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.PAT }}
+          repository: lennysgarage/relations-client-java
+          event-type: api_update
+          client-payload: '{"commit": "${{ steps.extract-sha.outputs.COMMIT_SHA }}"}'
+
+
+
