@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Clone target repository
-        run: git clone https://github.com/lennysgarage/relations-client-java.git
+        run: git clone git@github.com:lennysgarage/relations-client-java.git
 
       - name: Copy proto files
         run: |
