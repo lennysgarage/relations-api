@@ -29,9 +29,12 @@ jobs:
           git push origin sync-proto-files
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v6
-        with:
-          token: ${{ secrets.PAT }}
-          commit-message: Sync proto files
-          branch: sync-proto-files  
-          base: main 
+        run: |
+          cd relations-client-java
+          gh pr create --title "Sync updated proto files" \
+                       --head sync-proto-files \
+                       --base main \
+                       --repo lennysgarage/relations-client-java
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT }}
+
