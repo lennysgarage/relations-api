@@ -25,7 +25,6 @@ message GetLivezRequest {}
 message GetLivezResponse {
 	string status = 1;
 	uint32 code = 2;
- 	uint32 test = 3;
 }
 
 message GetReadyzRequest {}
