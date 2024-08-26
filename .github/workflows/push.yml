@@ -24,8 +24,7 @@ jobs:
           git config --global user.email "jmarcant@redhat.com"
           cd relations-client-java
           git checkout -b sync-proto-files
-          git add .
-          git commit -m "Sync updated proto files"
+          git commit -am "Sync updated proto files"
           git push origin sync-proto-files
 
       - name: Create Pull Request
