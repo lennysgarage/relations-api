@@ -1,4 +1,5 @@
 name: buf-push
+
 on:
   push:
     branches:
@@ -9,22 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      # - uses: bufbuild/buf-setup-action@v1
-      # - uses: bufbuild/buf-lint-action@v1
-      #   with:
-      #     input: "api"
-      # - uses: bufbuild/buf-breaking-action@v1
-      #   with:
-      #     input: "api"
-      #     against: "https://github.com/${GITHUB_REPOSITORY}.git#branch=main,ref=HEAD~1"
-      # - uses: bufbuild/buf-push-action@v1
-      #   with:
-      #     input: "api"
-      #     buf_token: ${{ secrets.BUF_TOKEN }}
-
       - name: Clone target repository
         run: git clone https://github.com/lennysgarage/relations-client-java.git
-      
+
       - name: Copy proto files
         run: |
           cp -r api/kessel/relations/v1/*.proto relations-client-java/src/main/proto/kessel/relations/v1/
@@ -35,12 +23,14 @@ jobs:
           git config --global user.name "jonathan marcantonio"
           git config --global user.email "jmarcant@redhat.com"
           cd relations-client-java
+          git checkout -b sync-proto-files
           git commit -am "Sync updated proto files"
-        
+          git push origin sync-proto-files
+
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.PAT }}
           commit-message: Sync proto files
-
-
+          branch: sync-proto-files  
+          base: main 
