@@ -32,6 +32,7 @@ jobs:
         run: |
           cd relations-client-java
           gh pr create --title "Sync updated proto files" \
+                       --body "This PR syncs the updated proto files" \
                        --head sync-proto-files \
                        --base main \
                        --repo lennysgarage/relations-client-java
